@@ -10,14 +10,14 @@ import {
 export function Home() {
   return (
     <HomeContainer>
-      <FormContainer>
-        <div>
+      <form action="">
+        <FormContainer>
           <label htmlFor="task">I will work in</label>
           <input id="task" />
           <label htmlFor="minutesAmount">during</label>
           <input id="minutesAmount" type="number" />
           <span>minutes.</span>
-        </div>
+        </FormContainer>
         <CountdownContainer>
           <span>0</span>
           <span>0</span>
@@ -29,7 +29,7 @@ export function Home() {
           <Play size={24} />
           Start
         </button>
-      </FormContainer>
+      </form>
     </HomeContainer>
   )
 }
