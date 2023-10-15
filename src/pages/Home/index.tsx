@@ -13,6 +13,11 @@ import {
   TaskInput,
 } from './styles'
 
+interface NewCycleFormData {
+  task: string
+  minutesAmount: number
+}
+
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'Report the task'),
   minutesAmount: zod
@@ -22,11 +27,16 @@ const newCycleFormValidationSchema = zod.object({
 })
 
 export function Home() {
-  const { register, handleSubmit, watch, formState } = useForm({
-    resolver: zodResolver(newCycleFormValidationSchema),
-  })
+  const { register, handleSubmit, watch, formState } =
+    useForm<NewCycleFormData>({
+      resolver: zodResolver(newCycleFormValidationSchema),
+      defaultValues: {
+        task: '',
+        minutesAmount: 0,
+      },
+    })
 
-  function handleCreateNewCycle(data: any) {
+  function handleCreateNewCycle(data: NewCycleFormData) {
     console.log(data)
   }
 
