@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { Play } from 'phosphor-react'
 
 import {
@@ -12,23 +12,26 @@ import {
 } from './styles'
 
 export function Home() {
-  const [task, setTask] = useState('')
+  const { register, handleSubmit, watch } = useForm()
 
-  function resetForm() {
-    setTask('')
+  function handleCreateNewCycle(data: any) {
+    console.log(data)
   }
+
+  const task = watch('task')
+
+  const isSubmitDisabled = !task
 
   return (
     <HomeContainer>
-      <form action="">
+      <form onSubmit={handleSubmit(handleCreateNewCycle)}>
         <FormContainer>
           <label htmlFor="task">I will work in</label>
           <TaskInput
             id="task"
             list="task-suggestions"
             placeholder="Give your project a name"
-            onChange={(event) => setTask(event.target.value)}
-            value={task}
+            {...register('task')}
           />
           <datalist id="task-suggestions">
             <option value="Ignite React.js Certification" />
@@ -41,6 +44,7 @@ export function Home() {
             step={5}
             min={5}
             max={60}
+            {...register('minutesAmount', { valueAsNumber: true })}
           />
           <span>minutes.</span>
         </FormContainer>
@@ -51,7 +55,7 @@ export function Home() {
           <span>0</span>
           <span>0</span>
         </CountdownContainer>
-        <StartCountdownButton disabled={!task} type="submit">
+        <StartCountdownButton disabled={isSubmitDisabled} type="submit">
           <Play size={24} />
           Start
         </StartCountdownButton>
