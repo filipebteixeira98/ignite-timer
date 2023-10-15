@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Play } from 'phosphor-react'
 
 import {
@@ -11,6 +12,12 @@ import {
 } from './styles'
 
 export function Home() {
+  const [task, setTask] = useState('')
+
+  function resetForm() {
+    setTask('')
+  }
+
   return (
     <HomeContainer>
       <form action="">
@@ -20,6 +27,8 @@ export function Home() {
             id="task"
             list="task-suggestions"
             placeholder="Give your project a name"
+            onChange={(event) => setTask(event.target.value)}
+            value={task}
           />
           <datalist id="task-suggestions">
             <option value="Ignite React.js Certification" />
