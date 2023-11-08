@@ -53,12 +53,18 @@ export function Home() {
   console.log(activeCycle)
 
   useEffect(() => {
+    let interval: number
+
     if (activeCycle) {
-      setInterval(() => {
+      interval = setInterval(() => {
         setAmountSecondsPassed(
           differenceInSeconds(new Date(), activeCycle.startDate) // eslint-disable-line
         )
       }, 1000)
+    }
+
+    return () => {
+      clearInterval(interval)
     }
   }, [activeCycle])
 
@@ -75,6 +81,8 @@ export function Home() {
     setCycles((state) => [...state, newCycle])
 
     setActiveCycleId(id)
+
+    setAmountSecondsPassed(0)
 
     reset()
   }
